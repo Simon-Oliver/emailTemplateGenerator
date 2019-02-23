@@ -1,28 +1,39 @@
 import React from 'react';
+import DataItems from './DataItems';
 
 class App extends React.Component {
   state = {
-    csvfile: undefined
+    csvfile: undefined,
+    error: '',
+    data: []
   };
 
   handleChange = event => {
     this.setState({
       csvfile: event.target.files[0]
     });
+    this.setState({ error: '' });
   };
 
-  importCSV = () => {
+  importCSV = event => {
     const { csvfile } = this.state;
-    const Papa = require('papaparse/papaparse.min.js');
-    Papa.parse(csvfile, {
-      complete: this.updateData,
-      header: true
-    });
+    if (!csvfile) {
+      this.setState({ error: 'Please Upload a .csv file' });
+    } else {
+      this.setState({ error: '' });
+      const Papa = require('papaparse/papaparse.min.js');
+      Papa.parse(csvfile, {
+        complete: this.updateData,
+        header: true
+      });
+    }
   };
 
   updateData = result => {
     const data = result.data;
     console.log(data);
+    this.setState({ csvfile: undefined, data });
+    this.filesInput.value = null;
   };
 
   render() {
@@ -42,6 +53,7 @@ class App extends React.Component {
         />
         <p />
         <button onClick={this.importCSV}> Upload now!</button>
+        {!this.state.error ? <DataItems data={this.state.data} /> : <h1>{this.state.error}</h1>}
       </div>
     );
   }

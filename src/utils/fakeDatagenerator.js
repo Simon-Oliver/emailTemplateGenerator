@@ -16,7 +16,7 @@ const createUsers = (numUsers = 5) => {
   return usersCSV;
 };
 
-const fileContent = createUsers(5);
+const fileContent = createUsers(5).trim();
 
 const filepath = 'fakeData.csv';
 
