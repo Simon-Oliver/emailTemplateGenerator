@@ -1,19 +1,23 @@
 import React from 'react';
+import DataItem from './DataItem';
 
 class DataItems extends React.Component {
   render() {
     const { data } = this.props;
-    const mapped = data.map(e => {
+    const mapped = data.map((e, i) => {
       return (
-        <div key={e.email}>
-          <input value={e.name} />
-          <input value={e.email} />
-          <input value={e.company} />
-          <input value={e.Cert} />
-        </div>
+        <DataItem
+          key={i}
+          index={i}
+          name={e.name}
+          email={e.email}
+          company={e.company}
+          cert={e.Cert}
+          editData={this.props.editData}
+        />
       );
     });
-    return <div>{mapped}</div>;
+    return <div className="ui container">{mapped}</div>;
   }
 }
 
