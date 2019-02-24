@@ -29,14 +29,12 @@ class DataLoader extends React.Component {
 
   updateData = result => {
     const data = result.data;
-    console.log(data);
     this.setState({ csvfile: undefined });
     this.filesInput.value = null;
     this.props.handleData(data);
   };
 
   render() {
-    console.log(this.state.csvfile);
     return (
       <div className="App">
         <h2>Import CSV File!</h2>

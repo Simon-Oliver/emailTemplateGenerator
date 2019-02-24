@@ -1,8 +1,6 @@
 import React from 'react';
 
 class DataItem extends React.Component {
-  state = { Cert: '', company: '', email: '', name: '' };
-
   onInputChange = e => {
     const { value, name } = e.target;
     this.props.editData({ name, value }, this.props.index);
